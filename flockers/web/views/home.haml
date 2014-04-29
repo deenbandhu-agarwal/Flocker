@@ -1,0 +1,95 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %title Lets flock together
+    %link{:href => "../assets/css/bootstrap.min.css", :rel => "stylesheet"}
+    /%link{:href => "../assets/css/navbar-fixed-top.css", :rel => "stylesheet"}
+  %body.main
+    =haml_partial "topBar"
+    .container
+      .jumbotron.heading
+        %h1 Flockers
+        %p A site to reveal the FUN SIDE of you.
+        %p.alert.alert-info#sessionMsg{:'data-bind' => 'text: sessionMessage, visible: sessionMessage'}
+
+      %div#event
+        .row
+          %input.hide{:id =>"current_user", :value => "#{@user}"}
+          %input.hide{:id =>"current_user_id", :value => "#{@userid}"}
+          %p.alert.alert-info#errorMsg{:'data-bind' => 'text: message, visible: message'}
+
+        .row{:"data-bind" => "foreach: publicEvents"}
+          =haml_partial "publicEventCard"
+        .row{:"data-bind"=>"visible : detailedState()"}
+          %span.label.label-success
+            Flock Details
+          %div.panel.panel-success
+            /%div.panel-heading
+            /  %h4{:'data-bind' => 'text : selectedActivity'}
+            %div.panel-body
+              =haml_partial "eventdetails"
+
+      #signInModal.modal.fade{"aria-hidden" => "true", "aris-labelledby" => "signInModal",:role => "dialog" ,:tabindex => "-1"}
+        .modal-dialog
+          .modal-content
+            .modal-header
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
+              %h4.modal-title Sign In
+            .modal-body
+              %form.form-horizontal{:role => "form"}
+                .form-group
+                  %label.col-sm-4.control-label Username
+                  .col-sm-6
+                    %input.form-control{:"data-bind" => "value : uname", :placeholder => "Email address",:type => "text"}
+                      
+                .form-group
+                  %label.col-sm-4.control-label Password
+                  .col-sm-6
+                    %input.form-control{:"data-bind" => "value : pas", :placeholder => "Password",:type => "password"}
+                          
+                .form-group
+                  .col-sm-offset-4.col-sm-6
+                    .checkbox
+                      %label
+                        %input.checkbox{:type => "checkbox", :value => "remember-me"}
+                        Remember me
+                .form-group
+                  .col-sm-offset-4.col-sm-6
+                    %button#show.btn.btn-large.btn-primary{:'data-dismiss' => "modal",:"data-bind" => "click : login"} Sign In              
+
+      #signUpModal.modal.fade{"aria-hidden" => "true", "aris-labelledby" => "signUpModal",:role => "dialog" ,:tabindex => "-1"}
+        .modal-dialog
+          .modal-content
+            .modal-header
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
+              %h4.modal-title Sign Up
+            .modal-body
+              %form.form-horizontal{:role => "form"}                    
+                .form-group
+                  %label.col-sm-4.control-label Username
+                  .col-sm-6
+                    %input.form-control{:placeholder => "Email address",:type => "text",:'data-bind' => "value : uname"}
+                      
+                .form-group
+                  %label.col-sm-4.control-label Create Password
+                  .col-sm-6
+                    %input.form-control{:placeholder => "Create Password",:type => "password",:'data-bind' => "value : pas"}
+            
+                .form-group
+                  %label.col-sm-4.control-label Confirm Password
+                  .col-sm-6
+                    %input.form-control{:placeholder => "Confirm Password",:type => "password",:'data-bind' => "value : confirmpas"}
+            
+                .form-group
+                  .col-sm-offset-4.col-sm-6
+                    %button#show.btn.btn-large.btn-primary{:'data-dismiss' => "modal",:'data-bind'=> " click : signup"} Sign Up
+
+
+    =haml_partial "footer"
+
+    %script{:src => "../assets/js/knockout-2.2.1.js"}  
+    %script{:src => "../assets/js/jquery.min.js"}
+    %script{:src => "../assets/js/bootstrap.min.js"}  
+    /%script{:src => "../assets/js/profile.js"}
+    %script{:src => "../assets/js/user.js"}
+    %script{:src => "../assets/js/event.js"}

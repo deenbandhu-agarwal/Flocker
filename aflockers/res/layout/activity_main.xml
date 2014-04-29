@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <TabHost android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/tabHost"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+    <TabWidget
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+   	android:background="#fff"
+    android:id="@android:id/tabs"/>
+    
+     <FrameLayout
+     android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@android:id/tabcontent"
+     >
+     <LinearLayout
+     android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/tab1"
+    android:orientation="vertical"
+    android:paddingTop="0dp"
+    android:background="@drawable/ty"
+     >
+     <TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="30dp" 
+    android:text="@string/I_would_like_to"
+    android:id="@+id/txt1"
+    />   
+    <ListView 
+    android:id="@+id/verblist"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:dividerHeight="15dp"
+    android:layout_margin="18dp"/>
+  
+    <ListView 
+    android:id="@+id/activitylist"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:dividerHeight="15dp"
+    android:layout_margin="18dp"/>
+    
+    <ListView 
+    android:id="@+id/eventlist"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:dividerHeight="15dp"
+    android:layout_margin="18dp"/>
+    
+    
+    <Button
+        android:id="@+id/CreateEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginRight="17dp"
+        android:onClick="createEvent"
+        android:text="@string/CreateEvent"
+        android:visibility="invisible"/>
+     
+    
+     </LinearLayout>
+     
+     <LinearLayout
+     android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/tab2"
+    android:orientation="vertical"
+    android:paddingTop="0dp"
+    android:background="@drawable/ty"
+     >
+         
+     <ExpandableListView
+     android:id="@+id/listview"
+     android:layout_height="wrap_content"
+     android:layout_width="wrap_content"
+     android:dividerHeight="15dp"
+     android:layout_margin="18dp"/>   
+   
+     </LinearLayout>
+     
+     </FrameLayout>
+    </LinearLayout>
+    </TabHost>

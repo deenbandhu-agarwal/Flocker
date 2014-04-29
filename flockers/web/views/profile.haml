@@ -1,0 +1,111 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %title Create Flock
+    /%link{:href=>"//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", :rel=>"stylesheet"}
+    %link{:href => "../assets/css/bootstrap.min.css", :rel => "stylesheet"}
+    %link{:href => "../assets/css/bootstrap-timepicker.css", :rel => "stylesheet"}
+    %link{:href => "../assets/css/datepicker.css", :rel => "stylesheet"}
+    %link{:href => "../assets/css/navbar-fixed-top.css", :rel => "stylesheet"}
+    %script{:src => "../assets/js/jquery.min.js"}
+  %body.main
+    =haml_partial "topBar"
+    .container
+      .row
+        %input.hide{:id =>"current_user", :value => "#{@user}"}
+        %input.hide{:id =>"current_user_id", :value => "#{@userid}"}
+        %p.alert.alert-info#sessionMsg{:'data-bind' => 'text: sessionMessage, visible: sessionMessage'}
+
+      %div#event
+        .row
+          .navbar-fixed-top{:style => 'top: 60px;'}
+            %em
+              %h2.text-danger.text-center{:'data-bind' => 'text : displayText'}
+        .row
+          =haml_partial "progress"
+        .row
+          %p.alert.alert-info#errorMsg{:'data-bind' => 'text: message, visible: message'}          
+          %span.label.label-info
+            Choose Verb
+          %div.panel.panel-info
+            /%div.panel-heading
+            /%h4{:href => "#wheel"} I would love to
+            %div.panel-body{:style => "text-align:center"}
+              %div{:'data-bind' => 'foreach : verb'}
+                .col-sm-3.col-md-2
+                  .thumbnail{:style => 'background-color: black'}
+                    .caption
+                      %button.btn.btn-lg.btn-link{:'data-bind' => 'text : $data,click : function() { $root.getActivities($data);}'}
+
+        .row{:'data-bind' => 'visible : activities().length'}
+          %span.label.label-warning
+            Choose Activity
+          %div.panel.panel-warning
+            /%div.panel-heading
+            /  %h4{:'data-bind' => 'text : selectedVerb'}
+            %div.panel-body{:style => "text-align:center"}
+              %div{:'data-bind'=>'foreach:activities'}
+                .col-sm-3.col-md-2
+                  .thumbnail{:style => 'background-color: black'}
+                    /%i.fa.fa-camera-retro.fa-5x
+                    /%img{alt: "...", "data-src" => "holder.js/300x200"}/
+                    .caption
+                      %button.btn-warning.btn.btn-link{:'data-bind'=>"click : function(){$root.searchEventByActivity($data);},text:$data", :style => "width:100%"}
+              .col-sm-4.col-md-4
+                .thumbnail{:style => 'background-color: black'}
+                  /%i.fa.fa-camera-retro.fa-5x
+                  /%img{alt: "...", "data-src" => "holder.js/300x200"}/
+                  .caption
+                    %form.form-inline{role: "form"}
+                      .form-group
+                        %input.form-control{:placeholder => "Activity", :type => "text", :'data-bind' => "value : newActivity"}
+                      %button.btn.btn-default{:type => "button", :'data-bind'=> "click: addActivity"}
+                        %span.glyphicon.glyphicon-plus
+                        Add
+
+        .row{:'data-bind' => 'visible : createEventState'}
+          %div
+            %span.label.label-danger
+              Choose or Create Flock
+            %div.panel.panel-danger
+              /%div.panel-heading
+              /  %h4{:'data-bind' => 'text : selectedActivity'}
+              %div.panel-body
+                %div{:"data-bind"=>"visible : searchedEvents().length, foreach:searchedEvents"}
+                  =haml_partial "publicEventCard"
+                =haml_partial "createEventCard"
+
+        .row{:"data-bind"=>"visible : detailedState()"}
+          %span.label.label-success
+            Flock Details
+          %div.panel.panel-success
+            /%div.panel-heading
+            /  %h4{:'data-bind' => 'text : selectedActivity'}
+            %div.panel-body
+              =haml_partial "eventdetails"
+
+        .row{:'data-bind' => 'visible : participationEvents().length'}
+          %span.label.label-danger
+            My Events
+          %div.panel.panel-info
+            %div.panel-heading
+              %h4{:'data-bind' => 'text : selectedActivity'}
+            %div.panel-body{:"data-bind"=>"foreach:myParticipatedEvents"}
+              =haml_partial "participatedEventCard"
+
+        .row{:'data-bind' => 'visible : showCreateEventForm()'}
+          %span.label.label-success
+            Create Flock
+          .panel.panel-success
+            .panel-body
+            =haml_partial "createEvent"
+
+      =haml_partial "footer"
+
+      %script{:src => "../assets/js/knockout-2.2.1.js"} 
+      %script{:src => "../assets/js/bootstrap.min.js"}
+      %script{:src => "../assets/js/bootstrap-timepicker.js"}
+      %script{:src => "../assets/js/bootstrap-datepicker.js"}  
+      %script{:src => "../assets/js/event.js"}
+      %script{:src => "../assets/js/user.js"}
+      /%script{:src => "../assets/js/wheel.js"}

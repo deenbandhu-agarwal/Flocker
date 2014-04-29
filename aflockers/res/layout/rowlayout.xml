@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="283dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_edittext"
+    android:layout_margin="50dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp" 
+        android:layout_centerInParent="true" 
+        android:textColor="#FFFFFF"        
+       />
+
+</RelativeLayout>

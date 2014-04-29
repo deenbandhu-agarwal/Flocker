@@ -1,0 +1,42 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %title My Flocks
+    %link{:href => "../assets/css/bootstrap.min.css", :rel => "stylesheet"}
+    %link{:href => "../assets/css/navbar-fixed-top.css", :rel => "stylesheet"}
+  %body.main
+    =haml_partial "topBar"
+    .container
+      %h1
+        Flockers
+        %small A site to reveal the FUN SIDE of you.
+      %p.alert.alert-info#sessionMsg{:'data-bind' => 'text: sessionMessage, visible: sessionMessage'}
+
+      %div#event
+        .row
+          %input.hide{:id =>"current_user", :value => "#{@user}"}
+          %input.hide{:id =>"current_user_id", :value => "#{@userid}"}
+          %p.alert.alert-info#errorMsg{:"data-bind" => "visible: message, text: message"}
+        %h4 Flocks Owned
+        .row{:"data-bind" => "foreach: myOwnedEvents"}
+          =haml_partial "ownedEventCard"
+        %h4 Flocks Participating In
+        .row{:"data-bind" => "foreach: myParticipatedEvents"}
+          =haml_partial "participatedEventCard"
+        .row{:"data-bind"=>"visible : detailedState()"}
+          %span.label.label-success
+            Flock Details
+          %div.panel.panel-success
+            /%div.panel-heading
+            /  %h4{:'data-bind' => 'text : selectedActivity'}
+            %div.panel-body
+              =haml_partial "eventdetails"
+
+    =haml_partial "footer"
+
+    %script{:src => "../assets/js/knockout-2.2.1.js"}  
+    %script{:src => "../assets/js/jquery.min.js"}
+    %script{:src => "../assets/js/bootstrap.min.js"}  
+    /%script{:src => "../assets/js/profile.js"}
+    %script{:src => "../assets/js/user.js"}
+    %script{:src => "../assets/js/event.js"}
